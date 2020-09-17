@@ -44,7 +44,7 @@ export class AppComponent {
 /**
  * @param evt The MouseEvent from the template
  */
-  startDrag(evt: MouseEvent) {
+  private startDrag(evt: MouseEvent): void {
     const target = evt.target as SVGAElement;
     const {offsetX, offsetY} = evt;
     const cx = Number(target.getAttributeNS(null, 'cx'));
