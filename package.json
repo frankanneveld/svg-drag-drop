@@ -1,6 +1,8 @@
 {
   "name": "svg-drag-drop",
   "version": "0.0.0",
+  "author": "Frank Anneveld",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
