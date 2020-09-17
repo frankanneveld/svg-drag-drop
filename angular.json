@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "svg-drag-drop"
+    }
+  },
+  "defaultProject": "svg-drag-drop",
+  "cli": {
+    "analytics": false
+  }
 }
