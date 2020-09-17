@@ -13,7 +13,9 @@ export class AppComponent {
   private selectedElement: { [key: string]: any };
   private dragging: Observable<Event>;
 
-
+/**
+ * Wrap up listerners with RxJs operators
+ */
   constructor() {
     const mouseDown: Observable<Event> = fromEvent(window, 'mousedown');
     const mouseUp: Observable<Event> = fromEvent(window, 'mouseup');
@@ -21,7 +23,9 @@ export class AppComponent {
     this.dragging = mouseDown.pipe(switchMap(() => mouseMove.pipe(takeUntil(mouseUp))));
   }
 
-
+/**
+ * Handle dragging events after the view is initialized
+ */
   ngAfterViewInit(): void {
     this.dragging.pipe(debounce(() => interval(0))).subscribe((event: MouseEvent) => {
       const {offsetX, offsetY} = event;
@@ -30,11 +34,13 @@ export class AppComponent {
       this.selectedElement.target.setAttributeNS(null, 'cx', `${cx}`);
       this.selectedElement.target.setAttributeNS(null, 'cy', `${cy}`);
 
-      // Logging
       this.log = {cx, cy};
     });
   }
 
+/**
+ * @param evt The Event from the template
+ */
   startDrag(evt: MouseEvent) {
     const target = evt.target as HTMLElement;
     const {offsetX, offsetY} = evt;
@@ -42,7 +48,6 @@ export class AppComponent {
     const cy = Number(target.getAttributeNS(null, 'cy'));
     this.selectedElement = {...this.selectedElement, target, dcx: cx - offsetX, dcy: cy - offsetY};
 
-    // Logging
     this.log = {cx, cy};
   }
 }
