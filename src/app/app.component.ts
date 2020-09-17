@@ -13,6 +13,8 @@ export class AppComponent {
   private selectedElement: { [key: string]: any };
   private dragging: Observable<Event>;
 
+  // TODO: Move all the logic to an Directive
+
 /**
  * Wrap up listerners with RxJs operators
  */
