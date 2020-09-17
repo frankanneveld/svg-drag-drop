@@ -21,6 +21,7 @@ export class AppComponent {
     const mouseUp: Observable<Event> = fromEvent(window, 'mouseup');
     const mouseMove: Observable<Event> = fromEvent(window, 'mousemove');
     this.dragging = mouseDown.pipe(switchMap(() => mouseMove.pipe(takeUntil(mouseUp))));
+    mouseUp.subscribe( () => this.selectedElement = null );
   }
 
 /**
@@ -29,17 +30,17 @@ export class AppComponent {
   ngAfterViewInit(): void {
     this.dragging.pipe(debounce(() => interval(0))).subscribe((event: MouseEvent) => {
       const {offsetX, offsetY} = event;
-      const cx = offsetX + this.selectedElement.dcx;
-      const cy = offsetY + this.selectedElement.dcy;
-      this.selectedElement.target.setAttributeNS(null, 'cx', `${cx}`);
-      this.selectedElement.target.setAttributeNS(null, 'cy', `${cy}`);
+      const cx = offsetX + this.selectedElement?.dcx;
+      const cy = offsetY + this.selectedElement?.dcy;
+      this.selectedElement?.target.setAttributeNS(null, 'cx', `${cx}`);
+      this.selectedElement?.target.setAttributeNS(null, 'cy', `${cy}`);
 
       this.log = {cx, cy};
     });
   }
 
 /**
- * @param evt The Event from the template
+ * @param evt The MouseEvent from the template
  */
   startDrag(evt: MouseEvent) {
     const target = evt.target as HTMLElement;
