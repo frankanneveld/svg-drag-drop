@@ -8,7 +8,7 @@ import { switchMap, takeUntil, debounce } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public log: any;
+  public log: {[key: string]: number};
 
   private selectedElement: { [key: string]: any };
   private dragging: Observable<Event>;
