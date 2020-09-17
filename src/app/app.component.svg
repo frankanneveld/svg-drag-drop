@@ -1,19 +1,4 @@
 <svg class="box">
-<!-- TODO: Move to SCSS -->
-  <style>
-    .box {
-      border: 1px black solid;
-      width: 300px;
-      height: 500px;
-    }
-    text {
-      user-select: none;
-    }
-  </style>
+  <text  x="10" y="40">{{log | json}}</text>
   <circle (mousedown)="startDrag($event)" cx="24" cy="100" r="24" fill="orange" />
 </svg>
-
-
-<pre style="user-select: none">
-  <h2>{{log | json}}</h2>
-</pre>
