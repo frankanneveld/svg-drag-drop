@@ -9,6 +9,8 @@ import { switchMap, takeUntil, debounce } from 'rxjs/operators';
 })
 export class AppComponent {
   public log: {[key: string]: number};
+  // public xpos = 100;
+  // public ypos = 100;
 
   private selectedElement: { [key: string]: any };
   private dragging: Observable<Event>;
@@ -31,12 +33,18 @@ export class AppComponent {
  */
   ngAfterViewInit(): void {
     this.dragging.pipe(debounce(() => interval(0))).subscribe((event: MouseEvent) => {
-      const {offsetX, offsetY} = event;
-      const cx = offsetX + this.selectedElement?.dcx;
-      const cy = offsetY + this.selectedElement?.dcy;
-      this.selectedElement?.target.setAttributeNS(null, 'cx', `${cx}`);
-      this.selectedElement?.target.setAttributeNS(null, 'cy', `${cy}`);
+      const {clientX, screenY} = event;
+      const cx = clientX + this.selectedElement?.dcx;
+      const cy = screenY + this.selectedElement?.dcy;
+      // this.selectedElement?.target.setAttributeNS(null, 'cx', `${cx}`);
+      // this.selectedElement?.target.setAttributeNS(null, 'cy', `${cy}`);
+      // const transform = "matrix(1,0,0,1,"+cx+","+cy+")";
+      const transform = "translate("+cx+","+cy+")";
+      this.selectedElement?.target.setAttribute("transform", transform);
 
+
+      // this.xpos = cx;
+      // this.ypos = cy;
       this.log = {cx, cy};
     });
   }
@@ -45,12 +53,20 @@ export class AppComponent {
  * @param evt The MouseEvent from the template
  */
   public startDrag(evt: MouseEvent): void {
-    const target = evt.target as SVGAElement;
-    const {offsetX, offsetY} = evt;
-    const cx = Number(target.getAttributeNS(null, 'cx'));
-    const cy = Number(target.getAttributeNS(null, 'cy'));
-    this.selectedElement = {...this.selectedElement, target, dcx: cx - offsetX, dcy: cy - offsetY};
 
+    const target = evt.target as SVGElement;
+    console.log(target.getAttribute('transform'));
+
+    // console.log(target.getAttributeNode('transform'));
+    // console.log(target.getClientRects());
+    console.log(target.viewportElement.clientTop);
+
+    // console.log(target.getAttributeNode('transform'));
+    const {clientX, clientY} = evt;
+    const cx = evt.offsetX;
+    const cy = evt.offsetY
+    this.selectedElement = {...this.selectedElement, target, dcx: clientX - cx, dcy: clientY - cy };
+    // this.selectedElement = {...this.selectedElement, target, dcx: cx, dcy: cy };
     this.log = {cx, cy};
   }
 }

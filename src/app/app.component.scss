@@ -7,4 +7,9 @@
   text {
     user-select: none;
   }
+
+  .star {
+    transform: translate(160px, 50px);
+    fill: red;
+  }
 }

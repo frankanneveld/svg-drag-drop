@@ -1,4 +1,12 @@
 <svg class="box">
-  <text  x="10" y="40">{{log | json}}</text>
-  <circle (mousedown)="startDrag($event)" cx="24" cy="100" r="24" fill="orange" />
+  <!-- <text  x="10" y="40">{{log | json}}</text> -->
+  <!-- <circle (mousedown)="startDrag($event)" cx="24" cy="100" r="24" fill="orange"/> -->
+
+    <circle transform="translate(50,50)" (mousedown)="startDrag($event)" r="50" fill="blue"/>
+    <!-- <circle transform="translate(30,200)" (mousedown)="startDrag($event)" r="24" fill="orange"/> -->
+    <!-- <circle transform="translate(30,300)" (mousedown)="startDrag($event)" r="24" fill="blue"/> -->
+
+    <!-- <circle (mousedown)="startDrag($event)" r="24" fill="green" attr.transform="translate({{xpos}},{{ypos}})"/> -->
+    <!-- <circle (mousedown)="startDrag($event)" r="24" fill="orange" attr.transform="translate({{xpos}},{{ypos}})"/> -->
+    <path transform="translate(200,100)" fill="orange" (mousedown)="startDrag($event)" d="M0,0 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"/>
 </svg>
